@@ -750,3 +750,54 @@ h1, h2, h3 {
   width: 100%;
   max-width: 304px;
 }
+/* Required‑field asterisk */
+#contact .required {
+  color: #d12;
+  margin-left: 0.25rem;
+  font-weight: bold;
+}
+
+/* Form layout */
+#contact-form {
+  display: grid;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+#contact-form label {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: 500;
+}
+#contact-form input,
+#contact-form textarea {
+  margin-top: 0.3rem;
+  padding: 0.6rem;
+  border: 1px solid var(--color-text);
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+/* Center the reCAPTCHA widget */
+.g-recaptcha {
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 304px;
+}
+
+/* Submit button */
+#contact-form button {
+  padding: 0.75rem;
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Noto Sans', sans-serif;
+  transition: filter 0.2s;
+}
+#contact-form button:hover {
+  filter: brightness(0.9);
+}
