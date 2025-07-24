@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <title>Contact – Rashed N. Al Jayousi</title>
+  <title>Contact – Rashed N. Al Jayousi</title>
 
   <!-- Google Fonts -->
   <link
@@ -59,6 +59,11 @@
           method="POST"
           novalidate>
 
+      <!-- 1) Honeypot field -->
+      <div class="honeypot">
+        <label>Leave this blank: <input type="text" name="_gotcha"></label>
+      </div>
+
       <label>
         Name <span class="required">*</span>
         <input type="text" name="name" required placeholder="Your name">
@@ -70,8 +75,8 @@
       </label>
 
       <label>
-        Subject
-        <input type="text" name="subject" placeholder="Subject (optional)">
+        Subject <span class="required">*</span>
+        <input type="text" name="subject" required placeholder="Subject">
       </label>
 
       <label>
@@ -79,10 +84,14 @@
         <textarea name="message" rows="6" required placeholder="Your message…"></textarea>
       </label>
 
-      <!-- Google reCAPTCHA widget -->
-      <div class="g-recaptcha"
-           data-sitekey="6Lf8-I0rAAAAAGeyguY-Y8YHMAQVdxtS1p5pY4fA">
-      </div>
+      <!-- 2) Simple math question -->
+      <label>
+        What is 2 + 3? <span class="required">*</span>
+        <input type="text" name="captcha_answer" required placeholder="Answer">
+      </label>
+
+      <!-- 3) Timestamp (hidden) -->
+      <input type="hidden" name="timestamp" id="form-timestamp" value="">
 
       <button type="submit">📨 Send Message</button>
     </form>
@@ -93,6 +102,25 @@
     <p>&copy; 2025 Rashed N. Al Jayousi</p>
   </footer>
 
+  <!-- JavaScript -->
   <script src="script.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // record load time
+      const ts = Date.now();
+      document.getElementById("form-timestamp").value = ts;
+
+      document.getElementById("contact-form").addEventListener("submit", e => {
+        // prevent super-fast submissions (e.g. <3 seconds)
+        const start = parseInt(document.getElementById("form-timestamp").value, 10);
+        const now = Date.now();
+        if (now - start < 3000) {
+          e.preventDefault();
+          alert("Please take a moment before submitting the form.");
+        }
+      });
+    });
+  </script>
 </body>
 </html>
