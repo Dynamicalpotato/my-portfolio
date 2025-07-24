@@ -730,3 +730,23 @@ h1, h2, h3 {
   font-size: 1.5rem;
   margin-top: 1rem;
 }
+/* Hide the honeypot off-screen */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
+}
+
+/* Required-field asterisk */
+#contact .required {
+  color: #d12;
+  margin-left: 0.25rem;
+  font-weight: bold;
+}
+
+/* Center and style the reCAPTCHA widget */
+.g-recaptcha {
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 304px;
+}
