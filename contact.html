@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact – Rashed N. Al Jayousi</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&family=Noto+Sans:wght@400&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- reCAPTCHA API -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+
+  <!-- HEADER + NAV -->
+  <header>
+    <nav>
+      <ul class="tabs">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="blog.html">Blog &amp; Thoughts</a></li>
+        <li><a href="life.html">Life &amp; Hobbies</a></li>
+        <li><a href="cartography.html">Fantasy Cartography</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li>
+          <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="theme-switch-checkbox">
+              <input type="checkbox" id="theme-switch-checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTACT SECTION -->
+  <main id="contact" class="fade-in">
+    <h2>✉️ Let’s Chat!</h2>
+    <p>
+      I split my time between <strong>Jerusalem 🇵🇸</strong> and  
+      <strong>Sendai 🇯🇵</strong>. <br>If you have a question, a project idea,  
+      or just want to say hello, please fill out the form below.  <br><br>
+      Fields marked <span class="required">*</span> are required. I will get back to you as soon as possible. 
+    </p>
+
+    <form id="contact-form"
+          action="https://YOUR_BACKEND_ENDPOINT/send-email"
+          method="POST"
+          novalidate>
+
+      <label>
+        Name<span class="required">*</span>
+        <input type="text" name="name" required placeholder="Your name" />
+      </label>
+
+      <label>
+        Email<span class="required">*</span>
+        <input type="email" name="email" required placeholder="you@example.com" />
+      </label>
+
+      <label>
+        Subject <span class="required">*</span>
+        <input type="text" name="subject" required placeholder="Subject" />
+      </label>
+
+      <label>
+        Message <span class="required">*</span>
+        <textarea name="message" rows="6" required placeholder="Your message…"></textarea>
+      </label>
+
+      <!-- reCAPTCHA widget -->
+      <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div>
+
+      <button type="submit">📨 Send Message</button>
+    </form>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="fade-in">
+    <p>&copy; 2025 Rashed N. Al Jayousi</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

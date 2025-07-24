@@ -1,0 +1,732 @@
+/* 1) Color variables for light & dark modes */
+:root {
+    --color-bg: #FAFAFA;           /* off-white */
+    --color-text: #333333;         /* charcoal */
+    --color-accent: #A60000;       /* deep red accent */
+  }
+  html[data-theme="dark"] {
+    --color-bg: #1E1E1E;           /* dark charcoal */
+    --color-text: #FAFAFA;         /* off-white text */
+    --color-accent: #FF7043;       /* muted accent for dark */
+  }
+  
+  /* 2) Global resets & fonts */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+/* Headings */
+h1, h2, h3 {
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+  }
+  
+  /* Body and nav text */
+  body, p, li, nav a {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 400;
+  }
+  
+  
+  
+  /* 3) Navigation */
+  .tabs {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    margin: 0;
+    border-bottom: 2px solid var(--color-text);
+  }
+  .tabs a {
+    position: relative;
+    padding: 0.5rem;
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  .tabs a:hover,
+  .tabs a:focus {
+    color: var(--color-accent);
+  }
+  .tabs a::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 2px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transition: transform 0.3s ease-out;
+    transform-origin: center;
+  }
+  .tabs a:hover::after,
+  .tabs a:focus::after {
+    transform: scaleX(1);
+  }
+    /* Highlight the active tab */
+    .tabs a.active {
+        color: var(--color-accent);
+      }
+    
+      /* Underline the active tab */
+      .tabs a.active::after {
+        content: "";
+        position: absolute;
+        left: 0; right: 0; bottom: -2px;
+        height: 2px;
+        background: var(--color-accent);
+        transform: scaleX(1);
+        transform-origin: center;
+      }
+    
+  #theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--color-text);
+  }
+  
+  /* 4) Hero & Profile Pic */
+  .hero {
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .profile-pic {
+    width: 150px;               /* adjust as needed */
+    height: 150px;
+    border-radius: 50%;         /* perfect circle */
+    object-fit: cover;          /* fill the circle */
+    border: none;               /* remove any border */
+    box-shadow: none;           /* no drop-shadow */
+    background-color: transparent;
+    mix-blend-mode: normal;     /* sits naturally on bg */
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 0.2rem;
+    letter-spacing: 1px;
+  }
+  .tagline {
+    font-size: 1.2rem;
+    color: var(--color-text);
+  }
+  
+  /* 5) Sections */
+  section {
+    padding: 40px 20px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  /* 6) Footer */
+  footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--color-bg);
+    font-size: 0.9rem;
+  }
+  
+  /* 7) Scroll animation: fade-in */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* position wrapper in the corner */
+.theme-switch-wrapper {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+  }
+  
+  /* hide the checkbox itself */
+  .theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* track */
+  .theme-switch .slider {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    background-color: var(--slider-bg);
+    border-radius: 34px;
+    transition: background-color 0.3s;
+  }
+  
+  /* thumb */
+  .theme-switch .slider:before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    top: 3px;
+    background-color: var(--slider-thumb);
+    border-radius: 50%;
+    transition: transform 0.3s;
+  }
+  
+  /* when checked, move thumb and change track color */
+  .theme-switch input:checked + .slider {
+    background-color: var(--color-accent);
+  }
+  .theme-switch input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  
+  /* optional: make it “round” */
+  .slider.round {
+    border-radius: 34px;
+  }
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  
+  /* slider background variables */
+  :root {
+    --slider-bg: #ccc;
+    --slider-thumb: #fff;
+  }
+  /* dark mode slider overrides */
+  html[data-theme="dark"] {
+    --slider-bg: #444;
+    --slider-thumb: #1E1E1E;
+  }
+
+
+
+
+/* Base styles for floating icons */
+.icon {
+    position: absolute;
+    bottom: 10%;
+    width: 50px;
+    opacity: 0.8;
+    pointer-events: none; /* clicks go through */
+  }
+  
+  /* Cart moves left→right */
+  .icon-cart {
+    animation: slide-cart 15s linear infinite;
+  }
+  
+  /* Samurai moves right→left */
+  .icon-horse {
+    animation: slide-horse 20s linear infinite;
+  }
+  
+  @keyframes slide-cart {
+    from { transform: translateX(-150px); }
+    to   { transform: translateX(110vw); }
+  }
+  
+  @keyframes slide-horse {
+    from { transform: translateX(110vw); }
+    to   { transform: translateX(-150px); }
+  }
+  
+
+    /* Map page tweaks */
+.full-width {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 2rem auto;
+  }
+  #cartography p {
+    max-width: 700px;
+    margin: 1rem auto;
+    font-family: 'Noto Sans', sans-serif;
+    color: var(--color-text);
+  }
+  #cartography h2 {
+    font-family: 'Noto Serif', serif;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  /* Publications page specifics */
+#publications {
+  padding: 40px 20px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+#publications h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;  
+}
+
+#publications h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  font-style: italic;
+}
+
+#publications ul {
+  list-style: disc inside;
+  margin-bottom: 2rem;
+}
+
+#publications li {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+/* Inline icons in the “Find Me Online” section */
+#online .icon-inline {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+/* Inline icons in “Find Me Online” section */
+.icon-inline {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+/* Optional spacing between each link */
+#online p a {
+  margin-right: 1rem;
+  text-decoration: none;
+  color: var(--color-text);
+  transition: color 0.3s;
+}
+
+#online p a:hover {
+  color: var(--color-accent);
+}
+
+
+/* CV page specifics */
+#cv ul {
+  list-style: none;
+  padding: 0;
+}
+
+#cv li {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+#cv .year {
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-right: 0.5rem;
+}
+
+#cv section h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+}
+
+/* Reuse fade-in for each section */
+#cv section {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+/* CV – icon styling */
+#cv li {
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+  list-style: none;
+}
+
+#cv .year {
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-right: 0.5rem;
+}
+
+/* Section headings with emoji */
+#cv section h2 {
+  font-family: 'Noto Serif', serif;
+  font-size: 1.6rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Profile paragraph */
+#profile p {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+}
+
+/* Center main content */
+#cv {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+/* Presentations layout */
+.presentations-list,
+.honors-list {
+  list-style: none;
+  padding: 0;
+}
+
+.presentations-list li,
+.honors-list li {
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+
+/* Date column */
+.presentations-list .date {
+  display: inline-block;
+  width: 100px;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+/* Presentation title */
+.presentations-list strong {
+  display: block;
+  font-family: 'Noto Serif', serif;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+
+/* Venue / description */
+.presentations-list em {
+  display: block;
+  font-family: 'Noto Sans', sans-serif;
+  font-style: normal;
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+
+/* Honors & Fellowships */
+#honors .year {
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-right: 0.4rem;
+  display: inline-block;
+  width: 85px;
+}
+/* Profile text alignment */
+#profile p {
+  text-align: justify;
+  text-justify: inter-word;
+  /* Optional: add a bit of margin at bottom for breathing room */
+  margin-bottom: 1.5rem;
+}
+
+/* Contact page – required asterisk */
+#contact .required {
+  color: #d12;            /* vivid red */
+  margin-left: 0.25rem;
+  font-weight: bold;
+}
+
+/* Heading + intro text */
+#contact h2 {
+  text-align: center;
+  font-family: 'Noto Serif', serif;
+  margin-bottom: 0.5rem;
+}
+
+#contact p {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+/* Form grid */
+#contact-form {
+  display: grid;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#contact-form label {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* Inputs & textarea */
+#contact-form input,
+#contact-form textarea {
+  margin-top: 0.3rem;
+  padding: 0.6rem;
+  border: 1px solid var(--color-text);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+/* Center reCAPTCHA */
+.g-recaptcha {
+  margin: 0 auto 1rem;
+  width: 100%;
+  max-width: 304px;
+}
+
+/* Submit button */
+#contact-form button {
+  padding: 0.75rem;
+  font-size: 1rem;
+  background-color: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Noto Sans', sans-serif;
+  transition: filter 0.2s;
+}
+
+#contact-form button:hover {
+  filter: brightness(0.9);
+}
+/* PHOTO COLLAGE */
+.photo-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2px;
+  height: 50vh;           /* now half of the viewport */
+  overflow: hidden;
+}
+.photo-grid {
+  height: 50vh;           /* half the viewport */
+  /* … */
+}
+
+.about-overlay {
+  /* was 50%: covers half the grid */
+  height: 25%;            /* now covers only a quarter of the grid */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.5);
+  /* … */
+}
+
+
+.about-overlay h2 {
+  font-family: 'Noto Serif', serif;
+  margin: 0 0 0.5rem;
+}
+.about-overlay p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* HOBBIES & INTERESTS */
+#hobbies {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+#hobbies h2 {
+  font-family: 'Noto Serif', serif;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+#hobbies ul {
+  list-style: none;
+  padding: 0;
+}
+#hobbies li {
+  margin: 0.75rem 0;
+  font-size: 1rem;
+  font-family: 'Noto Sans', sans-serif;
+  display: flex;
+  align-items: center;
+}
+#hobbies li::before {
+  content: "•";
+  color: var(--color-accent);
+  margin-right: 0.75rem;
+}
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  gap: 2px;
+  width: 100%;
+}
+
+.photo-grid img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+/* ABOUT FLEX LAYOUT */
+.about-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.avatar {
+  flex: 0 0 150px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-accent);
+}
+
+.bio {
+  flex: 1;
+}
+
+.bio h2 {
+  font-family: 'Noto Serif', serif;
+  margin-bottom: 0.5rem;
+}
+
+.bio p {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+/* HOBBIES & INTERESTS */
+#hobbies {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+#hobbies h2 {
+  font-family: 'Noto Serif', serif;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+#hobbies ul {
+  list-style: none;
+  padding: 0;
+}
+
+#hobbies li {
+  margin: 0.75rem 0;
+  display: flex;
+  align-items: center;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+#hobbies li::before {
+  content: "•";
+  color: var(--color-accent);
+  margin-right: 0.75rem;
+}
+/* Under Construction Page */
+.under-construction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 60vh;
+  padding: 2rem 1rem;
+}
+
+.uc-content {
+  max-width: 500px;
+}
+
+.uc-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.under-construction h2 {
+  font-family: 'Noto Serif', serif;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-accent);
+}
+
+.under-construction p {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  margin: 0.75rem 0;
+}
+
+.uc-emojis {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+/* Under Construction / Teaser layout */
+.under-construction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 60vh;
+  padding: 2rem 1rem;
+}
+
+.uc-content {
+  max-width: 500px;
+}
+
+.uc-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.under-construction h2 {
+  font-family: 'Noto Serif', serif;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-accent);
+}
+
+.under-construction p {
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  margin: 0.75rem 0;
+}
+
+.uc-emojis {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
