@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <title>Contact – Rashed N. Al Jayousi</title>
+  <title>Contact – Rashed N. Al Jayousi</title>
 
   <!-- Google Fonts -->
   <link
@@ -18,14 +18,36 @@
 </head>
 <body>
 
-  <header>…your nav…</header>
+  <!-- HEADER + NAV -->
+  <header>
+    <nav>
+      <ul class="tabs">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="blog.html">Blog &amp; Thoughts</a></li>
+        <li><a href="life.html">Life &amp; Hobbies</a></li>
+        <li><a href="cartography.html">Fantasy Cartography</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li>
+          <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="theme-switch-checkbox">
+              <input type="checkbox" id="theme-switch-checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
 
   <!-- MAIN CONTACT SECTION -->
   <main id="contact" class="fade-in">
     <h2>✉️ Let’s Chat!</h2>
     <p>
-      I split my time between <strong>Jerusalem 🇵🇸</strong> and  
-      <strong>Sendai 🇯🇵</strong>.<br>
+      I split my time between <strong>Jerusalem 🇵🇸</strong> and  
+      <strong>Sendai 🇯🇵</strong>.<br>
       If you have a question, project idea, or just want to say hello,  
       please fill out the form below.<br><br>
       Fields marked <span class="required">*</span> are required.  
@@ -36,13 +58,6 @@
           action="https://YOUR_BACKEND_ENDPOINT/send-email"
           method="POST"
           novalidate>
-
-      <!-- 1) Honeypot field -->
-      <div class="honeypot">
-        <label>Leave this blank:
-          <input type="text" name="_gotcha" autocomplete="off">
-        </label>
-      </div>
 
       <label>
         Name <span class="required">*</span>
@@ -55,8 +70,8 @@
       </label>
 
       <label>
-        Subject <span class="required">*</span>
-        <input type="text" name="subject" required placeholder="Subject">
+        Subject
+        <input type="text" name="subject" placeholder="Subject (optional)">
       </label>
 
       <label>
@@ -64,16 +79,7 @@
         <textarea name="message" rows="6" required placeholder="Your message…"></textarea>
       </label>
 
-      <!-- 2) Simple math question -->
-      <label>
-        What is 2 + 3? <span class="required">*</span>
-        <input type="text" name="captcha_answer" required placeholder="Answer">
-      </label>
-
-      <!-- 3) Timestamp (hidden) -->
-      <input type="hidden" name="timestamp" id="form-timestamp" value="">
-
-      <!-- 4) Google reCAPTCHA widget -->
+      <!-- Google reCAPTCHA widget -->
       <div class="g-recaptcha"
            data-sitekey="6Lf8-I0rAAAAAGeyguY-Y8YHMAQVdxtS1p5pY4fA">
       </div>
@@ -82,26 +88,11 @@
     </form>
   </main>
 
-  <footer class="fade-in">…your footer…</footer>
+  <!-- FOOTER -->
+  <footer class="fade-in">
+    <p>&copy; 2025 Rashed N. Al Jayousi</p>
+  </footer>
 
-  <!-- JS for timestamp check -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // record load time
-      const ts = Date.now();
-      document.getElementById("form-timestamp").value = ts;
-
-      document.getElementById("contact-form").addEventListener("submit", e => {
-        // block super-fast submissions (<3s)
-        const start = parseInt(document.getElementById("form-timestamp").value, 10);
-        if (Date.now() - start < 3000) {
-          e.preventDefault();
-          alert("Please take a moment before submitting the form.");
-          return;
-        }
-        // allow form to submit; your backend must handle the other checks
-      });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
