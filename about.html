@@ -2,110 +2,112 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <title>About Me – Rashed N. Al Jayousi</title>
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&family=Noto+Sans:wght@400&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Rashed Al Jayousi</title>
+  <meta name="description" content="Biography of Rashed Al Jayousi, JSPS Postdoctoral Fellow at Tohoku University working on civil society and NGOs in Palestine and Japan.">
+  <link rel="canonical" href="https://rjayousi.me/about.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "url": "https://rjayousi.me/about.html",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Rashed Al Jayousi",
+      "url": "https://rjayousi.me",
+      "jobTitle": "JSPS Postdoctoral Fellow",
+      "affiliation": { "@type": "Organization", "name": "Tohoku University" },
+      "sameAs": [
+        "https://orcid.org/0000-0002-4991-7667",
+        "https://researchmap.jp/rjayousi"
+      ]
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <nav class="tabs">
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
+    <a href="publications.html">Writing</a>
+    <a href="cartography.html">Maps</a>
+    <a href="cv.html">CV</a>
+    <a href="contact.html">Contact</a>
+    <span class="spacer"></span>
+    <a href="game.html" class="play-pill">play · resilience</a>
+    <button class="theme-btn" type="button">☾ dark</button>
+  </nav>
 
-  <!-- NAV -->
-  <header>
-    <nav>
-      <ul class="tabs">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html" class="active">About</a></li>
-        <li><a href="publications.html">Publications</a></li>
-        <li><a href="blog.html">Blog &amp; Thoughts</a></li>
-        <li><a href="life.html">Life &amp; Hobbies</a></li>
-        <li><a href="cartography.html">Fantasy Cartography</a></li>
-        <li><a href="cv.html">CV</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li>
-          <div class="theme-switch-wrapper">
-            <label class="theme-switch" for="theme-switch-checkbox">
-              <input type="checkbox" id="theme-switch-checkbox" />
-              <span class="slider round"></span>
-            </label>
-          </div>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  <section class="page-top fade-in">
+    <div class="section-no">About</div>
+    <h1 class="page-title">Biography</h1>
+    <p class="page-lede">Researcher in civil society, governance, and development. Based in Sendai. Born in East Jerusalem.</p>
+  </section>
 
-  <!-- PHOTO COLLAGE + OVERLAY -->
-  <div class="photo-grid">
-    <img src="images/260_MG_6644.jpg" alt="At ISTR Antwerp Conference">
-    <img src="images/S__4087826.jpg" alt="With Colleagues in Workshop">
-    <img src="images/1r.jpg" alt="In Sendai Gardens">
-    <div class="about-overlay">
-      <h2>👋 About Me</h2>
+  <div class="about-grid fade-in">
+    <div>
+      <img class="photo" src="images/1r.jpg" alt="Rashed Al Jayousi">
+      <div class="portrait-caption" style="margin-top: 12px;">
+        <span style="color: var(--accent);">East Jerusalem · Tohoku</span>
+      </div>
+    </div>
+    <div class="bio">
       <p>
-       
+        Rashed Al Jayousi is a researcher in civil society, governance, and development. He holds a PhD in International Cultural Studies from Tohoku University (2024), an MSc in Finance and Economic Development from the University of Glasgow (HESPAL scholarship), and a BA in Economics from Al-Quds Bard College, with a minor in international law and human rights.
+      </p>
+      <p>
+        From 2018 to 2020 he worked at the Geneva Centre for Security Sector Governance (DCAF) on programmes covering the West Bank and Gaza, including anti-corruption, legal reform, and parliamentary oversight.
+      </p>
+      <p>
+        He came to Tohoku University in 2021 on a MEXT scholarship and completed his doctoral thesis, <em>Beyond NGOization in Conflict</em>, in 2024. His current research, supported by a JSPS Postdoctoral Fellowship through 2027, examines knowledge transfer and organisational resilience in Palestinian and Japanese civil society.
+      </p>
+      <p>
+        He is also a lecturer at the Arab American University Palestine, where he teaches in the Faculty of Graduate Studies.
       </p>
     </div>
   </div>
-  <!-- ABOUT ME FLEX LAYOUT -->
-  <main id="about" class="fade-in">
-    <section class="about-flex">
-      <!-- Avatar -->
-      <img
-        src="images/avatar.png"
-        alt="Rashed Al Jayousi"
-        class="avatar"
-      />
 
-      <!-- Bio -->
-      <div class="bio">
-        <h2>👋 About Me</h2>
-        <p>
-          Rashed Al Jayousi is a Palestinian from East Jerusalem. He’s currently
-          a JSPS International Research Fellow at Tohoku University (2025–2027) and
-          lectures at the Arab American University in Palestine. He served as
-          a TA at Tohoku University and as a junior project officer at DCAF,
-          leading projects on security‑sector governance, anti‑corruption,
-          and legal reform across the West Bank and Gaza.
-        </p>
-        <p>
-          Educated at Friends School (IB Diploma), he earned a BA in Economics
-          (Minor in International Law &amp; Human Rights) at Al‑Quds Bard
-          College/Al‑Quds University, then completed an MSc in Finance &
-          Economic Development at the University of Glasgow on a HESPAL
-          scholarship (2018). After working with DCAF (2018–20), he pursued
-          a PhD in Management at Tohoku University (2021–24), researching
-          institutionalization and knowledge‑sharing in conflict‑affected
-          civil society. He then joined AAUP as Assistant Professor before
-          starting his JSPS Fellowship in Sendai.
-        </p>
-        <p>
-          Outside academia, Rashed has lived and studied in five countries,
-          presented at conferences across Europe and Asia, speaks five
-          languages, and loves exploring cultures through travel.
-        </p>
+  <div class="ornament-rule fade-in">
+    <span class="line"></span>
+    <img class="glyph" src="images/cart-icon.png" alt="">
+    <span class="line"></span>
+    <img class="glyph" src="images/date-icon.png" alt="">
+    <span class="line"></span>
+  </div>
+
+  <section class="spread fade-in">
+    <div class="head">
+      <h2>At a glance</h2>
+      <span class="meta">Summary</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px 56px; max-width: 1000px;">
+      <div>
+        <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">Position</div>
+        <p style="font-family: var(--serif); font-size: 17px; line-height: 1.5;">JSPS Postdoctoral Fellow, Tohoku University (2025–2027).</p>
       </div>
-    </section>
+      <div>
+        <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">Concurrent</div>
+        <p style="font-family: var(--serif); font-size: 17px; line-height: 1.5;">Lecturer, Arab American University Palestine.</p>
+      </div>
+      <div>
+        <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">Languages</div>
+        <p style="font-family: var(--serif); font-size: 17px; line-height: 1.5;">Arabic, English, Japanese, Hebrew, German.</p>
+      </div>
+      <div>
+        <div style="font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">Research areas</div>
+        <p style="font-family: var(--serif); font-size: 17px; line-height: 1.5;">Civil society, NGO governance, knowledge management, conflict and post-conflict development.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- HOBBIES & INTERESTS -->
-    <section id="hobbies" class="fade-in">
-      <h2>🎨 Hobbies &amp; Interests</h2>
-      <ul>
-        <li>🍳 Cooking maqluba, lasagna &amp; fusion recipes</li>
-        <li>📚 Reading philosophy, fantasy &amp; manga</li>
-        <li>🌿 Hiking  &amp; road trips (car buff!)</li>
-        <li>🗺️ Map‑making &amp; world‑building</li>
-        <li>✍️ Journaling &amp; hanging out with friends</li>
-      </ul>
-    </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="fade-in">
-    <p>&copy; 2026 Rashed N. Al Jayousi</p>
+  <footer class="colophon">
+    <span>© <span data-year></span> Rashed Al Jayousi</span>
+    <span>rjayousi.me</span>
   </footer>
-
   <script src="script.js"></script>
 </body>
 </html>

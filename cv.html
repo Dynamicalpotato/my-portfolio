@@ -2,171 +2,135 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <title>CV – Rashed N. Al Jayousi</title>
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&family=Noto+Sans:wght@400&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV — Rashed Al Jayousi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <ul class="tabs">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="publications.html">Publications</a></li>
-        <li><a href="blog.html">Blog &amp; Thoughts</a></li>
-        <li><a href="life.html">Life &amp; Hobbies</a></li>
-        <li><a href="cartography.html">Fantasy Cartography</a></li>
-        <li><a href="cv.html" class="active">CV</a></li>
-        <li><a href="contact.html">Contact</a></li>
+  <nav class="tabs">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="publications.html">Writing</a>
+    <a href="cartography.html">Maps</a>
+    <a href="cv.html" class="active">CV</a>
+    <a href="contact.html">Contact</a>
+    <span class="spacer"></span>
+    <a href="game.html" class="play-pill">play · resilience</a>
+    <button class="theme-btn" type="button">☾ dark</button>
+  </nav>
+
+  <section class="page-top fade-in">
+    <div class="section-no">CV</div>
+    <h1 class="page-title">The <em>working</em> record.</h1>
+    <p class="page-lede">Schools, jobs, talks, and the awards I'm still a bit surprised about. Updated April 2026.</p>
+  </section>
+
+  <main>
+    <section class="cv-section fade-in">
+      <h2>Profile <span class="nm">01</span></h2>
+      <p style="font-family: var(--serif); font-size: 17px; line-height: 1.6;">
+        JSPS fellow at Tohoku University. PhD in Management. The work draws on years of NGO project work in Palestine and fieldwork in places where the state isn't really running things. Before the PhD I was at DCAF in Geneva. I've taught at AAUP. The thread that runs through all of it is the same: how institutions actually behave, as opposed to how their org charts say they should.
+      </p>
+    </section>
+
+    <section class="cv-section fade-in">
+      <h2>Education <span class="nm">02</span></h2>
+      <ul class="cv-list">
+        <li><span class="year">2021–2024</span><span>PhD, Management — <strong>Tohoku University</strong></span></li>
+        <li><span class="year">2017–2018</span><span>MSc, Finance &amp; Economic Development — <strong>University of Glasgow</strong></span></li>
+        <li><span class="year">2012–2016</span><span>BA, Economics (Minor: Int'l Law &amp; HR) — <strong>Al-Quds Bard / Al-Quds University</strong></span></li>
+      </ul>
+    </section>
+
+    <section class="cv-section fade-in">
+      <h2>Experience <span class="nm">03</span></h2>
+      <ul class="cv-list">
+        <li><span class="year">2025–Present</span><span>JSPS International Research Fellow — Tohoku University</span></li>
+        <li><span class="year">2024–2025</span><span>Assistant Professor — Arab American University Palestine</span></li>
+        <li><span class="year">2022–2024</span><span>Teaching &amp; Research Assistant — Tohoku University</span></li>
+        <li><span class="year">2018–2020</span><span>Junior Project Officer — DCAF (Geneva Centre for Security Sector Governance)</span></li>
+      </ul>
+    </section>
+
+    <section class="cv-section fade-in">
+      <h2>Skills <span class="nm">04</span></h2>
+      <ul class="cv-list">
+        <li><span class="year">Research</span><span>Field research, qualitative methods, thematic analysis, NVivo, ATLAS.ti</span></li>
+        <li><span class="year">Quantitative</span><span>SPSS, EViews, Python (pandas, numpy)</span></li>
+        <li><span class="year">Tools</span><span>LaTeX, Adobe Creative Cloud, Microsoft Office, Google Workspace</span></li>
+        <li><span class="year">Practice</span><span>Project management, grant writing, monitoring &amp; evaluation, teaching</span></li>
+      </ul>
+    </section>
+
+    <section class="cv-section fade-in">
+      <h2>Languages <span class="nm">05</span></h2>
+      <ul class="cv-list">
+        <li><span class="year">Native</span><span>Arabic</span></li>
+        <li><span class="year">Fluent</span><span>English</span></li>
+        <li><span class="year">Intermediate</span><span>Japanese</span></li>
+        <li><span class="year">Basic</span><span>Hebrew · German</span></li>
+      </ul>
+    </section>
+
+    <section class="cv-section fade-in">
+      <h2>Talks <span class="nm">06</span></h2>
+      <ul class="pres-list">
         <li>
-          <div class="theme-switch-wrapper">
-            <label class="theme-switch" for="theme-switch-checkbox">
-              <input type="checkbox" id="theme-switch-checkbox" />
-              <span class="slider round"></span>
-            </label>
-          </div>
+          <span class="date">23 Mar 2025</span>
+          <strong>Social Capital in Palestinian Civil Society</strong>
+          <em>5th Annual Research Conference, JASR — Dokkyo University, Japan</em>
+        </li>
+        <li>
+          <span class="date">15 Jul 2024</span>
+          <strong>How Do Local NGOs Share Knowledge in Contexts of Resilience?</strong>
+          <em>8th International PhD Seminar, ISTR — Antwerp, Belgium</em>
+        </li>
+        <li>
+          <span class="date">07 May 2023</span>
+          <strong>Trapped in Governance Dilemmas: Civil Society Organizations in Conflict-Affected Areas</strong>
+          <em>ISTR &amp; Doha Institute Workshop on Governance without Government in the MENA Region — Doha, Qatar</em>
+        </li>
+        <li>
+          <span class="date">14 Jul 2022</span>
+          <strong>Palestinian Civil Society: The Dynamics of Palestinian CSOs in a Conflict Setting</strong>
+          <em>15th International Conference of ISTR — Ontario, Canada</em>
+        </li>
+        <li>
+          <span class="date">18 Jun 2019</span>
+          <strong>Data Mining, Social Media, Revolutions, and Politics</strong>
+          <em>EuroMeSCo Annual Conference 2019 — Barcelona, Spain</em>
         </li>
       </ul>
-    </nav>
-  </header>
+    </section>
 
-<main id="cv">
-
-  <!-- PROFILE -->
-  <section id="profile" class="fade-in">
-    <h2>👤 Profile</h2>
-    <p>
-      Dr. Rashed Al Jayousi is a JSPS International Research Fellow at Tohoku University (2025–2027) and holds a PhD in Management with a strong foundation in economics. His work is grounded in NGO project experience in Palestine and extensive field research on civil society in conflict zones. Prior to this, he served as Assistant Professor at the Arab American University, teaching business administration and quantitative methods. He has also collaborated with NGOs on security‑sector governance initiatives, with a particular focus on processes of institutionalization and accountability in complex environments.
-    </p>
-  </section>
-
-  <!-- (other CV sections follow) -->
-
-</main>
-
-
-    <!-- EDUCATION -->
-    <section id="education" class="fade-in">
-      <h2>🎓 Education</h2>
-      <ul>
-        <li>🎓 <span class="year">2021–2024</span> PhD, Management – Tohoku University</li>
-        <li>🎓 <span class="year">2017–2018</span> MSc, Finance &amp; Economic Development – University of Glasgow</li>
-        <li>🎓 <span class="year">2012–2016</span> BA, Economics (Minor: Int’l Law &amp; HR) – Al‑Quds Bard College / Al‑Quds University</li>
+    <section class="cv-section fade-in">
+      <h2>Scholarships &amp; awards <span class="nm">07</span></h2>
+      <ul class="cv-list">
+        <li><span class="year">2025–2027</span><span>JSPS Postdoctoral Fellowship</span></li>
+        <li><span class="year">2025</span><span>Development in Practice — Practitioner &amp; Early Career Researcher Prize</span></li>
+        <li><span class="year">2025</span><span>3rd JASR Encouragement Award</span></li>
+        <li><span class="year">2024</span><span>22nd Japan NPO Society Encouragement Award</span></li>
+        <li><span class="year">2020–2024</span><span>MEXT Scholarship (Japan)</span></li>
+        <li><span class="year">2017–2018</span><span>HESPAL Scholarship (UK)</span></li>
       </ul>
     </section>
 
-    <!-- EXPERIENCE -->
-    <section id="experience" class="fade-in">
-      <h2>💼 Experience</h2>
-      <ul>
-        <li>💼 <span class="year">2024–Present</span> JSPS International Research Fellow, Tohoku University</li>
-        <li>💼 <span class="year">2024–2025</span> Assistant Professor, Arab American University Palestine</li>
-        <li>💼 <span class="year">2022–2024</span> Teaching &amp; Research Assistant, Tohoku University</li>
-        <li>💼 <span class="year">2018–2020</span> Junior Project Officer, DCAF</li>
+    <section class="cv-section fade-in">
+      <h2>Memberships <span class="nm">08</span></h2>
+      <ul class="cv-list">
+        <li><span class="year">2023–Present</span><span>ISTR — International Society for Third-Sector Research</span></li>
+        <li><span class="year">2022–Present</span><span>JANPORA — Japan NPO Research Association</span></li>
       </ul>
     </section>
-
-    <!-- SKILLS -->
-    <section id="skills" class="fade-in">
-      <h2>🛠 Professional Skills</h2>
-      <ul>
-        <li>🛠 Analytical Thinking &amp; Problem Solving</li>
-        <li>🛠 Project Management &amp; Grant Writing</li>
-        <li>🛠 Presentation, Communication &amp; Teaching</li>
-        <li>🛠 Monitoring, Evaluation &amp; Reporting</li>
-        <li>🛠 Field Research &amp; Qualitative Methods</li>
-      </ul>
-    </section>
-
-    <!-- TECHNICAL SKILLS -->
-    <section id="tech-skills" class="fade-in">
-      <h2>🖥 Technical Skills</h2>
-      <ul>
-        <li>🖥 LaTeX, Adobe Creative Cloud</li>
-        <li>🖥 SPSS, EViews, Python (pandas, numpy)</li>
-        <li>🖥 Microsoft Office &amp; Google Workspace</li>
-        <li>🖥 NVivo, ATLAS.ti &amp; Thematic Analysis</li>
-      </ul>
-    </section>
-
-    <!-- LANGUAGES -->
-    <section id="languages" class="fade-in">
-      <h2>🌐 Languages</h2>
-      <ul>
-        <li>🌐 Arabic (Native)</li>
-        <li>🌐 English (Fluent)</li>
-        <li>🌐 Japanese (Intermediate)</li>
-        <li>🌐 Hebrew (Basic)</li>
-        <li>🌐 German (Basic)</li>
-      </ul>
-    </section>
-
-   <!-- PRESENTATIONS -->
-  <section id="presentations" class="fade-in">
-    <h2>🎤 Presentations</h2>
-    <ul class="presentations-list">
-      <li>
-        <span class="date">23 Mar 2025</span>
-        <strong>SOCIAL CAPITAL IN PALESTINIAN CIVIL SOCIETY</strong>
-        <em>5th Annual Research Conference – Japan Society for Social Relations (JASR), Dokkyo University, Japan</em>
-      </li>
-      <li>
-        <span class="date">15 Jul 2024</span>
-        <strong>HOW DO LOCAL NGOs SHARE KNOWLEDGE IN CONTEXTS OF RESILIENCE?</strong>
-        <em>8th International PhD Seminar – ISTR, Antwerp, Belgium</em>
-      </li>
-      <li>
-        <span class="date">07 May 2023</span>
-        <strong>TRAPPED IN GOVERNANCE DILEMMAS: CIVIL SOCIETY ORGANIZATIONS IN CONFLICT‑AFFECTED AREAS – INSIGHTS FROM PALESTINE</strong>
-        <em>ISTR &amp; Doha Institute Workshop on Governance without Government in the MENA Region – Doha, Qatar</em>
-      </li>
-      <li>
-        <span class="date">14 Jul 2022</span>
-        <strong>PALESTINIAN CIVIL SOCIETY: THE DYNAMICS OF PALESTINIAN CSOs IN A CONFLICT SETTING</strong>
-        <em>15th International Conference of ISTR – Ontario, Canada</em>
-      </li>
-      <li>
-        <span class="date">18 Jun 2019</span>
-        <strong>DATA MINING, SOCIAL MEDIA, REVOLUTIONS, AND POLITICS</strong>
-        <em>EuroMeSCo Annual Conference 2019 – Barcelona, Spain</em>
-      </li>
-      <li>
-        <span class="date">16 Apr 2016</span>
-        <strong>THE PERMANENT STATE OF EXCEPTION</strong>
-        <em>5th Smolny Int’l Student Conference – Saint Petersburg, Russia</em>
-      </li>
-    </ul>
-  </section>
-
-  <!-- HONORS & FELLOWSHIPS -->
-  <section id="honors" class="fade-in">
-    <h2>🏅 Scholarships, Awards &amp; Fellowships</h2>
-    <ul class="honors-list">
-      <li>🏅 <span class="year">2025–2027</span> JSPS Postdoctoral Fellowship</li>
-      <li>🏅 <span class="year">2020–2024</span> MEXT Scholarship (Japan)</li>
-      <li>🏅 <span class="year">2017–2018</span> HESPAL Scholarship (UK)</li>
-      <li>🏅 <span class="year">2024</span> 22nd Japan NPO Society Encouragement Award</li>
-      <li>🏅 <span class="year">2025</span> 3rd Japan Society for Social Relations Encouragement Award</li>
-      <li>🏅 <span class="year">2025</span> Development in Practice Practitioner and Early Career Researcher Prize</li>
-    </ul>
-
-    <h2>🤝 Memberships</h2>
-    <ul class="honors-list">
-      <li>🤝 <span class="year">2022–Present</span> JANPORA: Japan NPO Research Association</li>
-      <li>🤝 <span class="year">2023–Present</span> ISTR: International Society for Third‑Sector Research</li>
-    </ul>
-  </section>
-
   </main>
 
-  <footer class="fade-in">
-    <p>&copy; 2026 Rashed N. Al Jayousi</p>
+  <footer class="colophon">
+    <span>© <span data-year></span> Rashed Al Jayousi</span>
+    <span>rjayousi.me</span>
   </footer>
-
   <script src="script.js"></script>
 </body>
 </html>

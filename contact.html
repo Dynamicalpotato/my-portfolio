@@ -2,125 +2,97 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <title>Contact – Rashed N. Al Jayousi</title>
-
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&family=Noto+Sans:wght@400&display=swap"
-    rel="stylesheet"
-  />
-
-  <!-- Main stylesheet -->
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- reCAPTCHA API -->
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact — Rashed Al Jayousi</title>
+  <meta name="description" content="Contact Rashed Al Jayousi at Tohoku University.">
+  <link rel="canonical" href="https://rjayousi.me/contact.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <nav class="tabs">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="publications.html">Writing</a>
+    <a href="cartography.html">Maps</a>
+    <a href="cv.html">CV</a>
+    <a href="contact.html" class="active">Contact</a>
+    <span class="spacer"></span>
+    <a href="game.html" class="play-pill">play · resilience</a>
+    <button class="theme-btn" type="button">☾ dark</button>
+  </nav>
 
-  <!-- HEADER + NAV -->
-  <header>
-    <nav>
-      <ul class="tabs">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="publications.html">Publications</a></li>
-        <li><a href="blog.html">Blog &amp; Thoughts</a></li>
-        <li><a href="life.html">Life &amp; Hobbies</a></li>
-        <li><a href="cartography.html">Fantasy Cartography</a></li>
-        <li><a href="cv.html">CV</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
-        <li>
-          <div class="theme-switch-wrapper">
-            <label class="theme-switch" for="theme-switch-checkbox">
-              <input type="checkbox" id="theme-switch-checkbox" />
-              <span class="slider round"></span>
-            </label>
-          </div>
-        </li>
-      </ul>
-    </nav>
-  </header>
+  <section class="page-top fade-in">
+    <div class="section-no">Contact</div>
+    <h1 class="page-title">Contact</h1>
+    <p class="page-lede">For collaborations, talks, or correspondence.</p>
+  </section>
 
-  <!-- MAIN CONTACT SECTION -->
-  <main id="contact" class="fade-in">
-    <h2>✉️ Let’s Chat!</h2>
-    <p>
-      I split my time between <strong>Jerusalem 🇵🇸</strong> and  
-      <strong>Sendai 🇯🇵</strong>.<br>
-      If you have a question, project idea, or just want to say hello,  
-      please fill out the form below.<br><br>
-      Fields marked <span class="required">*</span> are required.  
-      I will get back to you as soon as possible.
-    </p>
-
-    <form id="contact-form"
-          action="https://YOUR_BACKEND_ENDPOINT/send-email"
-          method="POST"
-          novalidate>
-
-      <!-- 1) Honeypot field -->
-      <div class="honeypot">
-        <label>Leave this blank: <input type="text" name="_gotcha"></label>
+  <main class="contact-wrap fade-in">
+    <form id="contact-form" class="contact" novalidate>
+      <div class="honeypot" aria-hidden="true">
+        <label>Don't fill this in: <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
       </div>
 
       <label>
-        Name <span class="required">*</span>
-        <input type="text" name="name" required placeholder="Your name">
+        Name
+        <input type="text" name="name" required autocomplete="name">
       </label>
 
       <label>
-        Email <span class="required">*</span>
-        <input type="email" name="email" required placeholder="you@example.com">
+        Email
+        <input type="email" name="email" required autocomplete="email">
       </label>
 
       <label>
-        Subject <span class="required">*</span>
-        <input type="text" name="subject" required placeholder="Subject">
+        Subject
+        <input type="text" name="subject" required>
       </label>
 
       <label>
-        Message <span class="required">*</span>
-        <textarea name="message" rows="6" required placeholder="Your message…"></textarea>
+        Message
+        <textarea name="message" rows="6" required></textarea>
       </label>
 
-      <!-- 2) Simple math question -->
-      <label>
-        What is 2 + 3? <span class="required">*</span>
-        <input type="text" name="captcha_answer" required placeholder="Answer">
-      </label>
+      <div class="puzzle" id="puzzle">
+        <div class="puzzle-head">
+          <div>
+            <div class="puzzle-title">Slide the dial to match the target.</div>
+            <div class="puzzle-sub">Spam check.</div>
+          </div>
+          <div class="puzzle-status" id="puzzle-status">unsolved</div>
+        </div>
+        <div class="puzzle-track" id="puzzle-track">
+          <div class="puzzle-target" id="puzzle-target"></div>
+          <div class="puzzle-fill" id="puzzle-fill"></div>
+          <div class="puzzle-handle" id="puzzle-handle" tabindex="0" role="slider"
+               aria-label="Slide to match the target" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <span class="puzzle-grip"></span>
+          </div>
+        </div>
+        <div class="puzzle-foot">
+          <span class="puzzle-hint" id="puzzle-hint">Drag, or use ← →. Hold <kbd>Shift</kbd> for finer control.</span>
+          <button type="button" class="puzzle-reset" id="puzzle-reset">New puzzle</button>
+        </div>
+      </div>
 
-      <!-- 3) Timestamp (hidden) -->
-      <input type="hidden" name="timestamp" id="form-timestamp" value="">
+      <input type="hidden" id="form-ts" name="ts" value="">
+      <input type="hidden" id="puzzle-solved" name="puzzle_solved" value="0">
 
-      <button type="submit">📨 Send Message</button>
+      <button type="submit">Send message</button>
     </form>
+
+    <p style="margin-top: 32px; font-family: var(--serif); font-size: 15px; color: var(--ink-muted);">
+      Also on <a href="https://researchmap.jp/rjayousi?lang=en" target="_blank" rel="noopener" style="color: var(--accent);">ResearchMap</a> and <a href="https://orcid.org/0000-0002-4991-7667" target="_blank" rel="noopener" style="color: var(--accent);">ORCID</a>.
+    </p>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="fade-in">
-    <p>&copy; 2026 Rashed N. Al Jayousi</p>
+  <footer class="colophon">
+    <span>© <span data-year></span> Rashed Al Jayousi</span>
+    <span>rjayousi.me</span>
   </footer>
-
-  <!-- JavaScript -->
   <script src="script.js"></script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // record load time
-      const ts = Date.now();
-      document.getElementById("form-timestamp").value = ts;
-
-      document.getElementById("contact-form").addEventListener("submit", e => {
-        // prevent super-fast submissions (e.g. <3 seconds)
-        const start = parseInt(document.getElementById("form-timestamp").value, 10);
-        const now = Date.now();
-        if (now - start < 3000) {
-          e.preventDefault();
-          alert("Please take a moment before submitting the form.");
-        }
-      });
-    });
-  </script>
 </body>
 </html>

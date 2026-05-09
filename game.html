@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resilience — a small game by Rashed Al Jayousi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="tabs">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="publications.html">Writing</a>
+    <a href="cartography.html">Maps</a>
+    <a href="cv.html">CV</a>
+    <a href="contact.html">Contact</a>
+    <span class="spacer"></span>
+    <a href="game.html" class="play-pill active">play · resilience</a>
+    <button class="theme-btn" type="button">☾ dark</button>
+  </nav>
+
+  <section class="page-top fade-in">
+    <div class="section-no">A small game</div>
+    <h1 class="page-title">A few years<br>at <em>a small NGO.</em></h1>
+    <p class="page-lede">Five moments. One choice each. No score, no slider, no spreadsheet — just a few questions of the kind that come up when you're trying to keep a Palestinian civil society organisation alive, and the answer is rarely the one the textbooks suggest.</p>
+  </section>
+
+  <main class="game-wrap fade-in">
+    <p class="game-intro">
+      The argument of my thesis, in miniature: in difficult places, organisations survive by holding two things at once — the formal scaffolding that satisfies donors, and the informal practices that keep the work going when the scaffolding bends. Pick what feels right. Read what happens.
+    </p>
+
+    <div id="game" class="game-board"></div>
+  </main>
+
+  <footer class="colophon">
+    <span>© <span data-year></span> Rashed Al Jayousi</span>
+    <span>Based on <em>Beyond NGOization</em>, 2024</span>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+  // ============== RESILIENCE — simple version ==============
+  // Five vignettes. Two choices each. A short reflection after.
+  // No resources, no slider. The point is to feel the trade-off,
+  // not to optimise it.
+
+  const MOMENTS = [
+    {
+      year: 2026,
+      title: "A donor pulls funding.",
+      flavor: "Your largest grant evaporates after a political shift abroad. Six weeks of runway.",
+      choices: [
+        {
+          label: "File for emergency aid through proper channels.",
+          tag: "the formal route",
+          reply: "Forms get filed. Some come back. The team waits, and waits, and starts looking for other jobs while they wait.",
+        },
+        {
+          label: "Call every old contact you have for a bridge.",
+          tag: "the informal route",
+          reply: "Three former colleagues, two phone calls each. By Friday, a smaller foundation has wired enough to make payroll. Nobody puts it in writing.",
+        },
+      ],
+    },
+    {
+      year: 2027,
+      title: "An audit, on Tuesday.",
+      flavor: "A regulator wants three years of financials by Friday. Lose this and you lose your registration.",
+      choices: [
+        {
+          label: "All hands on deck. Books, receipts, weekend in the office.",
+          tag: "the formal route",
+          reply: "You pass — barely. Two staff quit the following month, exhausted. The licence stays.",
+        },
+        {
+          label: "Plead context. Ask the regulator for an extension.",
+          tag: "the informal route",
+          reply: "The regulator is sympathetic. The regulator is not the auditor. The auditor flags the gaps and the licence is suspended for ninety days.",
+        },
+      ],
+    },
+    {
+      year: 2028,
+      title: "A checkpoint closes for two weeks.",
+      flavor: "Movement restrictions cut your team off from half the field. Programmes still need to run.",
+      choices: [
+        {
+          label: "Switch to remote, document the closure for a report.",
+          tag: "the formal route",
+          reply: "The report is good. It gets cited. In the field, beneficiaries you served for years stop hearing from you, and quietly stop expecting to.",
+        },
+        {
+          label: "Send local volunteers on foot. They know the way.",
+          tag: "the informal route",
+          reply: "It works. Nobody writes it down. Two years later, when the volunteers move on, nobody remembers how the routes ran.",
+        },
+      ],
+    },
+    {
+      year: 2029,
+      title: "Your director leaves, suddenly.",
+      flavor: "She gets a UN posting in Geneva. Three years of relationships and unwritten judgement walk out with her.",
+      choices: [
+        {
+          label: "Run a proper search. Brief the board. Take your time.",
+          tag: "the formal route",
+          reply: "Five months of limbo. You hire well. The team you hand them is smaller and quieter than the one she left.",
+        },
+        {
+          label: "Promote the deputy. Trust the team to absorb the loss.",
+          tag: "the informal route",
+          reply: "The team holds. Two donors ask, gently, whether your governance is up to the new scale. One does not renew.",
+        },
+      ],
+    },
+    {
+      year: 2030,
+      title: "A war intensifies. Borders close.",
+      flavor: "Imports stop. International staff evacuate. The donors who remain are slow and nervous.",
+      choices: [
+        {
+          label: "Document everything. Bear witness. The records will matter later.",
+          tag: "the formal route",
+          reply: "The archive is good. After the ceasefire, three researchers cite it. During the war, filing reports while neighbours go hungry feels grotesque, and two of your best staff leave.",
+        },
+        {
+          label: "Switch to mutual aid entirely. Feed people. Forget the paperwork.",
+          tag: "the informal route",
+          reply: "The neighbourhood is fed. When funders return, they find a community organisation, not the NGO they knew. Some come back anyway. Some do not.",
+        },
+      ],
+    },
+  ];
+
+  let state;
+  function reset() {
+    state = { round: 0, log: [] };
+    render();
+  }
+  window.reset = reset;
+
+  function pick(choiceIdx) {
+    const m = MOMENTS[state.round];
+    const c = m.choices[choiceIdx];
+    state.log.push({ year: m.year, title: m.title, choice: c.label, tag: c.tag, reply: c.reply });
+    state.round += 1;
+    render();
+  }
+  window.pick = pick;
+
+  function render() {
+    const el = document.getElementById('game');
+    if (!el) return;
+
+    if (state.round >= MOMENTS.length) {
+      const formalCount = state.log.filter(l => l.tag === "the formal route").length;
+      const informalCount = state.log.length - formalCount;
+      let reading;
+      if (formalCount >= 4) {
+        reading = "You leaned on the rules. The organisation is legible to outsiders — funders trust it, regulators leave it alone — and a little brittle on the inside. This is most of the larger NGOs you've heard of.";
+      } else if (informalCount >= 4) {
+        reading = "You leaned on relationships. The work was warm and fast and often invisible to anyone not in the room. This is most of the organisations that quietly hold places together, and most of the ones that quietly disappear.";
+      } else {
+        reading = "You held both at once — formal where it had to be, informal where it could be. This is harder than either pure strategy, and closer to what actually works in the long run. It is also exhausting.";
+      }
+
+      el.innerHTML = `
+        <div class="game-end-simple">
+          <div class="game-end-tag">— After five years —</div>
+          <p class="game-end-body">${reading}</p>
+          <div class="game-end-log">
+            ${state.log.map(l => `
+              <div class="end-entry">
+                <div class="end-year">${l.year}</div>
+                <div>
+                  <div class="end-title">${l.title}</div>
+                  <div class="end-choice">→ ${l.choice}</div>
+                  <div class="end-reply">${l.reply}</div>
+                </div>
+              </div>`).join('')}
+          </div>
+          <div class="game-buttons">
+            <button class="primary" onclick="reset()">Play again</button>
+            <a class="game-link" href="publications.html">Read the work</a>
+          </div>
+          <p class="reading">If any of this resonated, my paper <a href="https://doi.org/10.1080/09614524.2025.2565610" target="_blank" rel="noopener">"Resilience through knowledge"</a> is the long version.</p>
+        </div>`;
+      return;
+    }
+
+    const m = MOMENTS[state.round];
+    el.innerHTML = `
+      <div class="game-header-simple">
+        <div class="game-year">${m.year} <span class="game-round">Year ${state.round + 1} of ${MOMENTS.length}</span></div>
+      </div>
+
+      <div class="crisis-card">
+        <div class="head">A moment</div>
+        <h4>${m.title}</h4>
+        <p>${m.flavor}</p>
+      </div>
+
+      <div class="choices-label">What do you do?</div>
+      <div class="choices-grid-simple">
+        ${m.choices.map((c, i) => `
+          <button class="choice-card-simple" onclick="pick(${i})">
+            <div class="choice-label">${c.label}</div>
+          </button>
+        `).join('')}
+      </div>
+
+      ${state.log.length ? `
+        <div class="game-log">
+          <div class="log-head">So far</div>
+          ${state.log.slice().reverse().map(l => `
+            <div class="entry">
+              <div class="entry-meta">${l.year}</div>
+              <div class="entry-title">${l.title}</div>
+              <div class="entry-choice">→ ${l.choice}</div>
+              <div class="entry-blurb">${l.reply}</div>
+            </div>`).join('')}
+        </div>` : ''}
+    `;
+  }
+
+  reset();
+  </script>
+</body>
+</html>

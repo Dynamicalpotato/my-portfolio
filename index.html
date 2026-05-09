@@ -1,66 +1,172 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-    <head>
-        <meta charset="UTF-8">
-        <title>Rashed  Al Jayousi –  Portfolio</title>
-        <!-- Google Fonts -->
-<!-- Noto Serif (700 for headings) & Noto Sans (400 for body) -->
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&family=Noto+Sans:wght@400&display=swap" 
-  rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-      </head>
-      
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rashed Al Jayousi</title>
+  <meta name="description" content="Rashed Al Jayousi. Researcher at Tohoku University. Civil society and NGOs in Palestine and Japan.">
+
+  <meta property="og:title" content="Rashed Al Jayousi">
+  <meta property="og:description" content="Researcher at Tohoku University. Civil society and NGOs in Palestine and Japan.">
+  <meta property="og:url" content="https://rjayousi.me">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://rjayousi.me/">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Rashed Al Jayousi",
+    "givenName": "Rashed",
+    "familyName": "Al Jayousi",
+    "url": "https://rjayousi.me",
+    "image": "https://rjayousi.me/images/1r.jpg",
+    "jobTitle": "JSPS Postdoctoral Fellow",
+    "description": "Researcher at Tohoku University. Civil society and NGOs in Palestine and Japan.",
+    "affiliation": [
+      { "@type": "Organization", "name": "Tohoku University", "url": "https://www.tohoku.ac.jp/en/" },
+      { "@type": "Organization", "name": "Arab American University Palestine", "url": "https://www.aaup.edu/" }
+    ],
+    "alumniOf": [
+      { "@type": "CollegeOrUniversity", "name": "Tohoku University" },
+      { "@type": "CollegeOrUniversity", "name": "University of Glasgow" },
+      { "@type": "CollegeOrUniversity", "name": "Al-Quds Bard College" }
+    ],
+    "knowsLanguage": ["ar", "en", "ja", "he", "de"],
+    "sameAs": [
+      "https://orcid.org/0000-0002-4991-7667",
+      "https://researchmap.jp/rjayousi",
+      "https://scholar.google.com/citations?user=rjayousi"
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-  <header>
-    <nav>
-        <ul class="tabs">
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="publications.html">Academic Publications</a></li>
-          <li><a href="blog.html">Blog &amp; Thoughts</a></li>
-          <li><a href="life.html">Life &amp; Hobbies</a></li>
-          <li><a href="cartography.html">Fantasy Cartography</a></li>
-          <li><a href="cv.html">CV</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li>
-            <div class="theme-switch-wrapper">
-              <label class="theme-switch" for="theme-switch-checkbox">
-                <input type="checkbox" id="theme-switch-checkbox" />
-                <span class="slider round"></span>
-              </label>
-            </div>
-          </li>
-        </ul>
-      </nav>
 
-    <div class="hero fade-in">
-      <!-- Your profile picture -->
-      <img src="images/profile.jpg" alt="Rashed N. Al Jayousi" class="profile-pic">
-      <h1>Rashed Al Jayousi</h1>
-      <p class="tagline">JSPS International Research Fellow</p>
+  <nav class="tabs">
+    <a href="index.html" class="active">Home</a>
+    <a href="about.html">About</a>
+    <a href="publications.html">Writing</a>
+    <a href="cartography.html">Maps</a>
+    <a href="cv.html">CV</a>
+    <a href="contact.html">Contact</a>
+    <span class="spacer"></span>
+    <a href="game.html" class="play-pill">play · resilience</a>
+    <button class="theme-btn" type="button">☾ dark</button>
+  </nav>
+
+  <section class="hero fade-in">
+    <div class="hero-text">
+      <div class="section-no">Hello</div>
+      <h1>Rashed<br><span class="it">Al Jayousi</span></h1>
+      <p class="tagline">
+        Researcher at Tohoku University. Works on civil society organisations in Palestine and Japan.
+      </p>
+      <div class="ctas">
+        <a class="cta cta-primary" href="publications.html">Publications</a>
+        <a class="cta" href="cv.html">CV</a>
+        <a class="cta" href="contact.html">Contact</a>
+      </div>
     </div>
-  </header>
+    <aside class="hero-aside">
+      <img class="portrait" src="images/1r.jpg" alt="Rashed Al Jayousi">
+      <div class="portrait-caption">
+        <span class="accent">JSPS Postdoctoral Fellow · Tohoku University · 2025–27</span>
+      </div>
+    </aside>
+  </section>
 
-  <main>
-    <section id="about" class="fade-in">
-      <h2>About Me</h2>
-      <p>I am a JSPS International Research Fellow in Economics and Management exploring civil society, crisis, and resilience, weaving together theory and fieldwork from Palestine to Japan.</p>
-    </section>
+  <section class="threecol fade-in">
+    <div>
+      <div class="nm">Research</div>
+      <h3>Civil society in conflict and post-conflict contexts.</h3>
+      <p>Comparative work on Palestinian and Japanese NGOs. Focus on governance, knowledge transfer, and the informal practices that sustain organisations when formal systems are weak or absent.</p>
+    </div>
+    <div>
+      <div class="nm">Current project</div>
+      <h3>A monograph on structure and agency.</h3>
+      <p>Book project comparing civil society in Japan and Palestine, working title <em>Structure and Agency in Crisis</em>. First draft expected by end of 2026.</p>
+    </div>
+    <div>
+      <div class="nm">Affiliation</div>
+      <h3>Tohoku University, Sendai.</h3>
+      <p>JSPS Postdoctoral Fellowship through 2027. Lecturer at Arab American University Palestine. Regular fieldwork in Jerusalem and Ramallah.</p>
+    </div>
+  </section>
 
-    <!-- Your CV, Publications, Contact sections go here, also add class="fade-in" -->
-  </main>
+  <div class="ornament-rule fade-in">
+    <span class="line"></span>
+    <img class="glyph" src="images/cart-icon.png" alt="">
+    <span class="line"></span>
+    <img class="glyph" src="images/date-icon.png" alt="">
+    <span class="line"></span>
+  </div>
 
-  <footer class="fade-in">
-    <p>&copy; 2026 Rashed Al Jayousi</p>
+  <section class="now-band fade-in">
+    <div class="label">Recent</div>
+    <div class="body">
+      <em>"Resilience through knowledge: insights into knowledge sharing in Palestinian NGOs"</em> received the 2025 Development in Practice Practitioner & Early Career Researcher Prize. Co-authored with Yu Nishide.
+      <div style="margin-top: 14px; font-family: var(--mono); font-size: 12px;">
+        <a href="https://doi.org/10.1080/09614524.2025.2565610" target="_blank" rel="noopener" style="color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 1px;">doi.org/10.1080/09614524.2025.2565610</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="spread fade-in">
+    <div class="head">
+      <h2>Selected publications</h2>
+      <span class="meta">2024–2026</span>
+    </div>
+    <ul class="writing-list">
+      <li>
+        <span class="y">2025</span>
+        <div>
+          <div class="t">Resilience through knowledge: insights into knowledge sharing in Palestinian NGOs</div>
+          <div class="v">Development in Practice · with Yu Nishide</div>
+        </div>
+        <span class="tag prize">★ ECR Prize 2025</span>
+      </li>
+      <li>
+        <span class="y">2026</span>
+        <div>
+          <div class="t">Trapped in Governance Dilemmas: Civil Society Organizations in Conflict Areas</div>
+          <div class="v">Springer · Governance without Government in the MENA Region</div>
+        </div>
+        <span class="tag">Book chapter</span>
+      </li>
+      <li>
+        <span class="y">2024</span>
+        <div>
+          <div class="t">Beyond the "NGOization" of civil society: A framework for sustainable community-led development in conflict settings</div>
+          <div class="v">Voluntas, 35 · with Yu Nishide</div>
+        </div>
+        <span class="tag">Peer-reviewed</span>
+      </li>
+      <li>
+        <span class="y">2024</span>
+        <div>
+          <div class="t">Beyond NGOization in Conflict</div>
+          <div class="v">Doctoral thesis · Tohoku University</div>
+        </div>
+        <span class="tag">Thesis</span>
+      </li>
+    </ul>
+    <div style="margin-top: 24px; font-family: var(--mono); font-size: 12px;">
+      <a href="publications.html" style="border-bottom: 1px solid var(--ink); padding-bottom: 1px;">Full list</a>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <span>© <span data-year></span> Rashed Al Jayousi</span>
+    <span>Fraunces · Inter · JetBrains Mono</span>
+    <span>rjayousi.me</span>
   </footer>
 
   <script src="script.js"></script>
-
-  <!-- 8-bit icons floating in the background -->
-<img src="images/cart-icon.png" class="icon icon-cart" alt="Kaek Cart">
-<img src="images/date-icon.png" class="icon icon-horse" alt="Date Masamune">
-
 </body>
 </html>
-
-

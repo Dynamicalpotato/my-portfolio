@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resilience — a small game by Rashed Al Jayousi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="tabs">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="publications.html">Writing</a>
+    <a href="cartography.html">Maps</a>
+    <a href="cv.html">CV</a>
+    <a href="contact.html">Contact</a>
+    <span class="spacer"></span>
+    <a href="game.html" class="play-pill active">▸ play: resilience</a>
+    <button class="theme-btn" type="button">☾ dark</button>
+  </nav>
+
+  <section class="page-top fade-in">
+    <div class="section-no">A small game</div>
+    <h1 class="page-title">Run an NGO<br>through <em>ten years.</em></h1>
+    <p class="page-lede">You direct a Palestinian civil society organisation. Twelve crises stand between you and the end of the decade. Each year you choose where to invest, and how to balance written rules against the unwritten ones. The trick, as in life, is reading the moment.</p>
+  </section>
+
+  <main class="game-wrap fade-in">
+    <p class="game-intro">
+      Built on the argument of my thesis: in difficult places, civil society survives by holding two things at once — the formal scaffolding that satisfies donors and regulators, and the informal practices that actually keep the work alive when the scaffolding bends. Lean too far either way for too long, and something breaks.
+    </p>
+
+    <div id="game" class="game-board"></div>
+  </main>
+
+  <footer class="colophon">
+    <span>© <span data-year></span> Rashed Al Jayousi</span>
+    <span>Based on <em>Beyond NGOization</em>, 2024</span>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+  // ============== RESILIENCE — expanded version ==============
+  // Resources: Trust (internal), Reputation (external), Funds, Capacity (staff energy)
+  // Each round:
+  //   1. A crisis with an "ideal" formal/informal balance and a tolerance window
+  //   2. Player picks ONE of three responses (each weights the four resources differently)
+  //   3. Player adjusts the formal/informal slider (carries between rounds with drift)
+  //   4. Outcome computed from: balance fit + chosen response + current resource state
+  // 12 rounds. Resources can be lost. If Funds or Capacity hit 0 the org folds.
+
+  const CRISES = [
+    {
+      year: 2026, season: "Spring",
+      title: "A major donor pulls funding mid-year.",
+      flavor: "Your largest grant evaporates after a political shift in the donor country. Six weeks of runway, fifteen staff.",
+      ideal: 0.35, tolerance: 0.20,
+      choices: [
+        { label: "Lay off four staff, cut programmes", desc: "Brutal but legible. Survives the audit. Costs trust.",
+          effects: { trust: -18, rep: -4, funds: +14, cap: +2 } },
+        { label: "Call every old contact for a bridge grant", desc: "Tap your relational capital. Risky. Cheap.",
+          effects: { trust: +6, rep: +2, funds: +9, cap: -10 }, informalBoost: true },
+        { label: "Hold steady. Pay people, file for emergency aid", desc: "Slow. Procedural. Bets on the system working.",
+          effects: { trust: +4, rep: +6, funds: -8, cap: -4 }, formalBoost: true },
+      ],
+      goodFormal: "Your audited books got the bridge grant approved within a fortnight.",
+      goodInformal: "Three smaller orgs absorbed your overheads on a handshake. The work didn't stop.",
+      badFormal: "The procedures slowed you to a halt. Reports got filed; staff didn't get paid.",
+      badInformal: "Without records, the bridging foundation couldn't justify the grant. They passed.",
+    },
+    {
+      year: 2026, season: "Autumn",
+      title: "Your director leaves, suddenly.",
+      flavor: "She gets a UN posting in Geneva. Three years of relationships and unwritten judgement walk out with her.",
+      ideal: 0.55, tolerance: 0.20,
+      choices: [
+        { label: "Promote internally, no fanfare", desc: "Continuity from inside. Trust holds. Funders may wobble.",
+          effects: { trust: +12, rep: -6, funds: -2, cap: -2 }, informalBoost: true },
+        { label: "Run a proper search, brief the board", desc: "Months of limbo. The right hire if you find them.",
+          effects: { trust: -6, rep: +4, funds: -8, cap: -8 }, formalBoost: true },
+        { label: "Bring back a former staffer on contract", desc: "A safe pair of hands. Not a long-term fix.",
+          effects: { trust: +4, rep: +2, funds: -5, cap: +4 } },
+      ],
+      goodFormal: "Documented procedures and a written succession plan kept the lights on.",
+      goodInformal: "A trusted deputy stepped up. The team's tacit knowledge absorbed the loss.",
+      badFormal: "Everything was in her head. Two months of paralysis followed.",
+      badInformal: "Without procedures, factions formed around who got to decide what.",
+    },
+    {
+      year: 2027, season: "Winter",
+      title: "A checkpoint closes for two weeks.",
+      flavor: "Movement restrictions cut your team off from half the field. Programmes still need to run.",
+      ideal: 0.25, tolerance: 0.20,
+      choices: [
+        { label: "Switch to remote and digital records", desc: "Slow this week, future-proof later.",
+          effects: { trust: -2, rep: +2, funds: -4, cap: -4 }, formalBoost: true },
+        { label: "Dispatch local volunteers on foot", desc: "Old methods. Faster than you'd think.",
+          effects: { trust: +8, rep: +4, funds: -2, cap: -8 }, informalBoost: true },
+        { label: "Pause and write a report on the closure", desc: "Useful evidence. Beneficiaries notice the silence.",
+          effects: { trust: -10, rep: +12, funds: +2, cap: +2 } },
+      ],
+      goodFormal: "Your remote-work protocols meant staff re-routed from home in a day.",
+      goodInformal: "Local volunteers improvised — they knew who needed what, and walked it there.",
+      badFormal: "The procedures assumed centralised offices. Everything stalled at the closure.",
+      badInformal: "No documented contacts. Beneficiaries you'd been serving for years went quiet.",
+    },
+    {
+      year: 2027, season: "Summer",
+      title: "An audit lands on Tuesday.",
+      flavor: "A regulator wants three years of financials by Friday. Lose this and you lose your registration.",
+      ideal: 0.78, tolerance: 0.18,
+      choices: [
+        { label: "All hands on deck, weekend in the office", desc: "Trust costs, capacity destroyed. You probably pass.",
+          effects: { trust: -8, rep: +10, funds: -2, cap: -16 }, formalBoost: true },
+        { label: "Hire an external accountant on credit", desc: "Buys clean books. Costs cash you don't have.",
+          effects: { trust: +2, rep: +8, funds: -16, cap: -2 }, formalBoost: true },
+        { label: "Plead context, ask for an extension", desc: "Risky. The regulator might respect honesty. Or not.",
+          effects: { trust: +4, rep: -8, funds: +0, cap: +0 } },
+      ],
+      goodFormal: "Books clean, receipts filed by quarter. The auditor left impressed.",
+      goodInformal: "Trust within the team carried the overtime. Books just barely held.",
+      badFormal: "Even your formal records had gaps. The auditor flagged inconsistencies.",
+      badInformal: "Informal practice does not pass an audit. The regulator suspended your licence.",
+    },
+    {
+      year: 2028, season: "Spring",
+      title: "Five new hires arrive in one quarter.",
+      flavor: "A grant came through. The team grew by 30%. They want to know how things work — and why.",
+      ideal: 0.50, tolerance: 0.22,
+      choices: [
+        { label: "Update the handbook, run formal onboarding", desc: "Expensive in time. Pays off later.",
+          effects: { trust: +4, rep: +4, funds: -6, cap: -10 }, formalBoost: true },
+        { label: "Pair them with senior mentors", desc: "Culture transmits. Senior staff get tired.",
+          effects: { trust: +12, rep: +0, funds: -2, cap: -8 }, informalBoost: true },
+        { label: "Throw them in the deep end", desc: "Sink-or-swim. Some swim.",
+          effects: { trust: -6, rep: -4, funds: +4, cap: +4 } },
+      ],
+      goodFormal: "Onboarding documents and clear roles got them productive in weeks.",
+      goodInformal: "Senior staff mentored them through real cases. The culture transmitted.",
+      badFormal: "The handbook was three years out of date. They learned nothing useful.",
+      badInformal: "Without structure, they reinvented every wheel and burned out by month four.",
+    },
+    {
+      year: 2028, season: "Autumn",
+      title: "A rival NGO is poaching your staff.",
+      flavor: "A larger international has set up shop down the street. They pay 40% more.",
+      ideal: 0.45, tolerance: 0.22,
+      choices: [
+        { label: "Match their salaries where you can", desc: "Saves the team. Burns the budget.",
+          effects: { trust: +14, rep: -2, funds: -18, cap: +4 } },
+        { label: "Lean into mission and culture", desc: "Some leave anyway. The ones who stay are the right ones.",
+          effects: { trust: +6, rep: +4, funds: +2, cap: -4 }, informalBoost: true },
+        { label: "Restructure: titles, career ladders, reviews", desc: "A grown-up move. Slow to land.",
+          effects: { trust: +0, rep: +8, funds: -8, cap: -8 }, formalBoost: true },
+      ],
+      goodFormal: "Clear career ladders gave senior staff something to aim at. Three stayed.",
+      goodInformal: "People stayed for the work and each other. The salary gap mattered less than expected.",
+      badFormal: "Bureaucracy without warmth pushed your best out the door.",
+      badInformal: "Without a structured response, staff felt undervalued and quietly left.",
+    },
+    {
+      year: 2029, season: "Winter",
+      title: "A whistle-blower alleges misuse of funds.",
+      flavor: "An anonymous email goes to three donors. The accusation is partly true — petty, but real.",
+      ideal: 0.70, tolerance: 0.18,
+      choices: [
+        { label: "Commission an independent review", desc: "Painful, public, the right call.",
+          effects: { trust: -4, rep: +14, funds: -10, cap: -6 }, formalBoost: true },
+        { label: "Quietly handle it internally", desc: "Faster. Trust survives. Reputation is fragile.",
+          effects: { trust: +6, rep: -14, funds: -2, cap: -4 }, informalBoost: true },
+        { label: "Issue a public statement and policy", desc: "Front-foot it. Set the narrative.",
+          effects: { trust: +0, rep: +6, funds: -4, cap: -4 } },
+      ],
+      goodFormal: "The independent review found and fixed the gap. Donors re-upped.",
+      goodInformal: "Trust within the team meant honesty arrived early. The matter was closed quickly.",
+      badFormal: "The review dragged on. Donors got nervous. One walked.",
+      badInformal: "An informal handling looked like a cover-up. Two donors withdrew.",
+    },
+    {
+      year: 2029, season: "Summer",
+      title: "Your office building is condemned.",
+      flavor: "A safety inspection finds the staircase has been holding on by goodwill. You have 30 days.",
+      ideal: 0.40, tolerance: 0.22,
+      choices: [
+        { label: "Move into a partner NGO's spare floor", desc: "Costs nothing. Owe a favour.",
+          effects: { trust: +4, rep: +6, funds: +4, cap: -4 }, informalBoost: true },
+        { label: "Lease a new office", desc: "Solid. Expensive. The right fit takes time.",
+          effects: { trust: +2, rep: +4, funds: -16, cap: -6 }, formalBoost: true },
+        { label: "Go remote-first for the year", desc: "A bet on the future. Costs cohesion.",
+          effects: { trust: -8, rep: +0, funds: +10, cap: -2 } },
+      ],
+      goodFormal: "A clean lease and a proper plan reassured the funders.",
+      goodInformal: "The partner NGO took you in. You cooked them lunch on Fridays.",
+      badFormal: "The lease ate the year's reserves. The fit was wrong.",
+      badInformal: "Couch-surfing turned into a year. People drifted apart.",
+    },
+    {
+      year: 2030, season: "Spring",
+      title: "A war intensifies. Borders close.",
+      flavor: "Imports stop. International staff evacuate. The donors who remain are nervous and slow.",
+      ideal: 0.20, tolerance: 0.22,
+      choices: [
+        { label: "Switch to mutual-aid mode entirely", desc: "Less work, more help. Less reportable.",
+          effects: { trust: +18, rep: -8, funds: -8, cap: -10 }, informalBoost: true },
+        { label: "Document everything for after the war", desc: "Bear witness. Slower help now.",
+          effects: { trust: -6, rep: +14, funds: -2, cap: -8 }, formalBoost: true },
+        { label: "Hibernate. Pay a skeleton crew, wait", desc: "Conservative. Trust frays.",
+          effects: { trust: -10, rep: -4, funds: +6, cap: +6 } },
+      ],
+      goodFormal: "Documenting every distribution mattered later — for grants, for justice.",
+      goodInformal: "The org became the neighbourhood. People were fed. Records can wait.",
+      badFormal: "Filing reports while people went hungry felt grotesque. Staff quietly left.",
+      badInformal: "Without records, post-war funders had nothing to assess. You started from zero.",
+    },
+    {
+      year: 2030, season: "Autumn",
+      title: "A coalition invitation arrives.",
+      flavor: "Twelve organisations want you to co-sign a regional advocacy platform. It's a big ask, with politics attached.",
+      ideal: 0.55, tolerance: 0.20,
+      choices: [
+        { label: "Sign and lead a working group", desc: "Visibility. Time you don't have.",
+          effects: { trust: +0, rep: +18, funds: +4, cap: -14 }, formalBoost: true },
+        { label: "Sign quietly, contribute behind the scenes", desc: "Useful, modest. Builds trust.",
+          effects: { trust: +6, rep: +6, funds: +0, cap: -4 } },
+        { label: "Decline politely", desc: "Stay focused. Some will read it as standoffish.",
+          effects: { trust: +2, rep: -10, funds: +0, cap: +6 } },
+      ],
+      goodFormal: "Your governance let you commit credibly. The coalition lifted everyone.",
+      goodInformal: "Quiet contribution earned more than visibility. People remembered.",
+      badFormal: "You over-committed. Working groups ate the calendar.",
+      badInformal: "Without governance, the coalition couldn't trust your sign-off. You were sidelined.",
+    },
+    {
+      year: 2031, season: "Winter",
+      title: "The thesis question, in real life.",
+      flavor: "A new generation in the team argues for radical informality. Older staff want clearer structure. The two factions are calcifying.",
+      ideal: 0.50, tolerance: 0.16,
+      choices: [
+        { label: "Lock in process, settle the debate top-down", desc: "Decisive. Some will leave.",
+          effects: { trust: -10, rep: +6, funds: +0, cap: +0 }, formalBoost: true },
+        { label: "Run a real internal dialogue, weeks of it", desc: "Painful, slow, possibly transformative.",
+          effects: { trust: +14, rep: +0, funds: -4, cap: -10 } },
+        { label: "Let the factions run pilots in parallel", desc: "Experimental. Hard to compare. Honest.",
+          effects: { trust: +6, rep: +4, funds: -6, cap: -6 } },
+      ],
+      goodFormal: "Clear governance gave the disagreement somewhere to land. Both sides could critique it.",
+      goodInformal: "Dialogue revealed both camps wanted the same thing in different language.",
+      badFormal: "Top-down structure killed the conversation. Half the new generation left.",
+      badInformal: "Without process, the factions hardened into camps. Meetings became theatre.",
+    },
+    {
+      year: 2031, season: "Summer",
+      title: "Final year. The board asks: what have we built?",
+      flavor: "Ten years on, the question of legacy lands on the table. How you answer is shaped by every choice you've made so far.",
+      ideal: 0.50, tolerance: 0.30,
+      choices: [
+        { label: "Commission an evaluation", desc: "Look honestly. Publish the findings.",
+          effects: { trust: +4, rep: +14, funds: -8, cap: -6 }, formalBoost: true },
+        { label: "Convene former staff and beneficiaries", desc: "An evening of stories. Worth more than a report.",
+          effects: { trust: +14, rep: +6, funds: -2, cap: -4 }, informalBoost: true },
+        { label: "Do both, modestly", desc: "Twice the work. Honest answer.",
+          effects: { trust: +10, rep: +12, funds: -10, cap: -10 } },
+      ],
+      goodFormal: "The evaluation was clear-eyed. It will help the next cohort.",
+      goodInformal: "The stories that came out had weight no spreadsheet could carry.",
+      badFormal: "An expensive consultant wrote a report nobody read.",
+      badInformal: "Stories without rigour preached only to the choir.",
+    },
+  ];
+
+  let state;
+  function reset() {
+    state = {
+      round: 0,
+      formal: 0.5,
+      trust: 70,
+      reputation: 60,
+      funds: 70,
+      capacity: 80,
+      log: [],
+      done: false,
+      collapsed: false,
+      collapseReason: '',
+    };
+    render();
+  }
+  window.reset = reset;
+
+  function clamp(n) { return Math.max(0, Math.min(100, n)); }
+
+  function judge(formal, ideal, tolerance) {
+    const diff = Math.abs(formal - ideal);
+    if (diff <= tolerance * 0.4) return 1;
+    if (diff <= tolerance) return 0.5;
+    if (diff <= tolerance * 1.7) return -0.4;
+    return -1;
+  }
+
+  function applyChoice(crisisIdx, choiceIdx) {
+    if (state.done) return;
+    const crisis = CRISES[crisisIdx];
+    const choice = crisis.choices[choiceIdx];
+
+    // 1. balance verdict (with the chosen response nudging the player's slider)
+    let formalAfter = state.formal;
+    if (choice.formalBoost) formalAfter = Math.min(1, formalAfter + 0.08);
+    if (choice.informalBoost) formalAfter = Math.max(0, formalAfter - 0.08);
+    const balanceScore = judge(formalAfter, crisis.ideal, crisis.tolerance);
+
+    // 2. response effects
+    const eff = choice.effects;
+    state.trust = clamp(state.trust + eff.trust + balanceScore * 6);
+    state.reputation = clamp(state.reputation + eff.rep + balanceScore * 6);
+    state.funds = clamp(state.funds + eff.funds + balanceScore * 4);
+    state.capacity = clamp(state.capacity + eff.cap + balanceScore * 4);
+
+    // 3. drift the slider slightly toward where the choice pushed it
+    state.formal = formalAfter;
+
+    // 4. narrative
+    let blurb;
+    if (balanceScore > 0.7) {
+      blurb = formalAfter >= crisis.ideal ? crisis.goodFormal : crisis.goodInformal;
+    } else if (balanceScore > 0) {
+      blurb = "You weather it — barely. The team is tired but standing.";
+    } else if (balanceScore > -0.5) {
+      blurb = formalAfter >= crisis.ideal ? crisis.badFormal : crisis.badInformal;
+    } else {
+      blurb = (formalAfter >= crisis.ideal ? crisis.badFormal : crisis.badInformal) + " The damage is real.";
+    }
+
+    state.log.push({
+      round: state.round + 1, year: crisis.year, season: crisis.season,
+      title: crisis.title, choice: choice.label, blurb,
+      deltas: { trust: eff.trust + Math.round(balanceScore * 6),
+                rep: eff.rep + Math.round(balanceScore * 6),
+                funds: eff.funds + Math.round(balanceScore * 4),
+                cap: eff.cap + Math.round(balanceScore * 4) }
+    });
+
+    // collapse conditions
+    if (state.funds <= 0) { state.done = true; state.collapsed = true; state.collapseReason = "You ran out of money. Salaries went unpaid; staff drifted."; }
+    else if (state.capacity <= 0) { state.done = true; state.collapsed = true; state.collapseReason = "The team burned out completely. Nobody answered the phone in the morning."; }
+
+    state.round += 1;
+    if (state.round >= CRISES.length) state.done = true;
+    render();
+  }
+  window.applyChoice = applyChoice;
+
+  function reading() {
+    if (state.collapsed) {
+      return ["The organisation folded.", state.collapseReason + " Most CSOs in protracted conflicts don't make it to year ten. The work was real while it lasted."];
+    }
+    const score = (state.trust + state.reputation) / 2;
+    const robust = state.funds > 50 && state.capacity > 50;
+    if (score > 75 && robust) return ["A genuinely resilient organisation.", "Trust held inside, reputation held outside, and the books and the team both survived. The kind of NGO that outlasts its founders."];
+    if (score > 60) return ["You held the line.", "Bruised, smaller maybe, but standing. In the field this is what success looks like more often than the textbooks admit."];
+    if (score > 40) return ["A fragile survival.", "The structure cracked under pressure but the work continued. This is most CSOs in difficult places — surviving, not thriving, doing useful work anyway."];
+    return ["The doors stayed open. Not much else.", "On paper the organisation existed for ten years. In practice, the last few were ceremonial. There's no shame in this — most don't make it this far."];
+  }
+
+  function render() {
+    const el = document.getElementById('game');
+    if (!el) return;
+
+    if (state.done) {
+      const [headline, body] = reading();
+      el.innerHTML = `
+        <div class="game-end">
+          <div class="game-end-tag">— Final reading · 2031 —</div>
+          <h3>${headline}</h3>
+          <p class="game-end-body">${body}</p>
+          <div class="game-end-grid">
+            <div class="game-stat"><div class="lbl">Trust</div><div class="val">${state.trust}</div></div>
+            <div class="game-stat"><div class="lbl">Reputation</div><div class="val">${state.reputation}</div></div>
+            <div class="game-stat"><div class="lbl">Funds</div><div class="val">${state.funds}</div></div>
+            <div class="game-stat"><div class="lbl">Capacity</div><div class="val">${state.capacity}</div></div>
+          </div>
+          <p class="reading">If any of this resonated, my paper <a href="https://doi.org/10.1080/09614524.2025.2565610" target="_blank" rel="noopener">"Resilience through knowledge"</a> is the long version.</p>
+          <div class="game-buttons">
+            <button class="primary" onclick="reset()">Play again</button>
+            <a class="game-link" href="publications.html">Read the work</a>
+          </div>
+          ${renderTimeline()}
+        </div>`;
+      return;
+    }
+
+    const crisis = CRISES[state.round];
+    const formalPct = Math.round(state.formal * 100);
+
+    el.innerHTML = `
+      <div class="game-header">
+        <div class="game-year">${crisis.year} · ${crisis.season} <span class="game-round">Year ${state.round + 1} of ${CRISES.length}</span></div>
+      </div>
+
+      <div class="game-resources">
+        ${resourceBar('Trust',      state.trust,       'internal')}
+        ${resourceBar('Reputation', state.reputation,  'external')}
+        ${resourceBar('Funds',      state.funds,       'cash on hand')}
+        ${resourceBar('Capacity',   state.capacity,    'staff energy')}
+      </div>
+
+      <div class="crisis-card">
+        <div class="head">Crisis</div>
+        <h4>${crisis.title}</h4>
+        <p>${crisis.flavor}</p>
+      </div>
+
+      <div class="balance-section">
+        <div class="balance-label">Set your balance for this year</div>
+        <div class="balance-row">
+          <span class="lbl left">${formalPct}% Formal</span>
+          <input type="range" min="0" max="100" value="${formalPct}" class="balance" id="bal">
+          <span class="lbl right">Informal ${100-formalPct}%</span>
+        </div>
+        <div class="balance-key">
+          <div><strong style="color: var(--ink);">Formal</strong> — written rules, audits, contracts. Slow but legible.</div>
+          <div><strong style="color: var(--accent);">Informal</strong> — relationships, trust, improvisation. Fast but fragile.</div>
+        </div>
+      </div>
+
+      <div class="choices-label">Your move</div>
+      <div class="choices-grid">
+        ${crisis.choices.map((c, i) => `
+          <button class="choice-card" onclick="applyChoice(${state.round}, ${i})">
+            <div class="choice-label">${c.label}</div>
+            <div class="choice-desc">${c.desc}</div>
+            <div class="choice-effects">
+              ${effLine(c.effects)}
+            </div>
+          </button>
+        `).join('')}
+      </div>
+
+      ${state.log.length ? renderLog() : ''}
+    `;
+
+    const bal = document.getElementById('bal');
+    if (bal) bal.addEventListener('input', (e) => {
+      state.formal = parseInt(e.target.value, 10) / 100;
+      const left = e.target.parentNode.querySelector('.lbl.left');
+      const right = e.target.parentNode.querySelector('.lbl.right');
+      if (left) left.textContent = `${e.target.value}% Formal`;
+      if (right) right.textContent = `Informal ${100 - e.target.value}%`;
+    });
+  }
+
+  function resourceBar(label, val, sub) {
+    const cls = val > 60 ? 'ok' : val > 30 ? 'warn' : 'bad';
+    return `
+      <div class="game-stat ${cls}">
+        <div class="lbl">${label} <span class="sub">${sub}</span></div>
+        <div class="val">${Math.round(val)}</div>
+        <div class="bar"><div class="fill" style="width: ${val}%"></div></div>
+      </div>`;
+  }
+
+  function effLine(e) {
+    const fmt = (n, label) => {
+      if (n === 0) return '';
+      const cls = n > 0 ? 'eff-good' : 'eff-bad';
+      const sign = n > 0 ? '+' : '';
+      return `<span class="${cls}">${label} ${sign}${n}</span>`;
+    };
+    return [fmt(e.trust, 'tr'), fmt(e.rep, 'rep'), fmt(e.funds, 'fnd'), fmt(e.cap, 'cap')].filter(Boolean).join(' · ');
+  }
+
+  function renderLog() {
+    return `<div class="game-log">
+      <div class="log-head">Years so far</div>
+      ${state.log.slice().reverse().map(l => `
+        <div class="entry">
+          <div class="entry-meta">${l.year} · ${l.season}</div>
+          <div class="entry-title">${l.title}</div>
+          <div class="entry-choice">→ ${l.choice}</div>
+          <div class="entry-blurb">${l.blurb}</div>
+        </div>`).join('')}
+    </div>`;
+  }
+
+  function renderTimeline() {
+    if (!state.log.length) return '';
+    return `<div class="game-timeline">
+      <div class="log-head">A decade in twelve moments</div>
+      ${state.log.map(l => `
+        <div class="tl-entry">
+          <div class="tl-year">${l.year} · ${l.season}</div>
+          <div>
+            <div class="tl-title">${l.title}</div>
+            <div class="tl-choice">${l.choice}</div>
+            <div class="tl-blurb">${l.blurb}</div>
+          </div>
+        </div>`).join('')}
+    </div>`;
+  }
+
+  reset();
+  </script>
+</body>
+</html>
