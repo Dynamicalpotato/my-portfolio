@@ -174,7 +174,7 @@
       );
       showFormSuccess();
       // Replace this with your real address before deploy
-      window.location.href = `mailto:rjayousi@example.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:rjayousi@proton.me?subject=${subject}&body=${body}`;
     });
   }
 
