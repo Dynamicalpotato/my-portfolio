@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notes — Rashed Al Jayousi</title>
+  <meta name="description" content="Occasional notes by Rashed Al Jayousi. A reflection on Handala, Edward Said, and representation.">
+
+  <meta property="og:title" content="Notes — Rashed Al Jayousi">
+  <meta property="og:description" content="A reflection on Handala, Edward Said, and representation.">
+  <meta property="og:url" content="https://rjayousi.me/notes.html">
+  <meta property="og:type" content="article">
+  <link rel="canonical" href="https://rjayousi.me/notes.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .notes-wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 40px var(--pad) 56px;
+    }
+    .note-meta {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .note-meta .accent { color: var(--accent); }
+
+    .note-viewer {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      justify-items: center;
+    }
+    .note-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .lang-switch {
+      display: inline-flex;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      overflow: hidden;
+      background: var(--paper);
+    }
+    .lang-switch button {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      padding: 8px 18px;
+      background: transparent;
+      border: none;
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+    .lang-switch button + button { border-left: 1px solid var(--rule); }
+    .lang-switch button.active { background: var(--ink); color: var(--paper); }
+    .lang-switch button:not(.active):hover { color: var(--ink); }
+
+    .open-full {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--ink-soft);
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 2px;
+      transition: color 0.18s, border-color 0.18s;
+    }
+    .open-full:hover { color: var(--accent); border-color: var(--accent); }
+
+    .note-plate {
+      width: min(440px, 86vw);
+      aspect-ratio: 1080 / 1920;
+      border: 1px solid var(--rule);
+      background: #cfcabc;
+      box-shadow: 0 24px 60px -28px rgba(40, 30, 15, 0.45);
+      overflow: hidden;
+    }
+    .note-plate iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .note-context {
+      max-width: 620px;
+      margin: 44px auto 0;
+      text-align: center;
+    }
+    .note-context .rule {
+      width: 56px;
+      height: 1px;
+      background: var(--rule);
+      margin: 0 auto 22px;
+    }
+    .note-context p {
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      font-style: italic;
+      color: var(--ink-soft);
+    }
+    .note-context a { color: var(--accent); border-bottom: 1px solid var(--accent); }
+  </style>
+</head>
+<body>
+
+  <nav class="tabs">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="publications.html">Writing</a>
+    <a href="notes.html" class="active">Notes</a>
+    <a href="cartography.html">Maps</a>
+    <a href="cv.html">CV</a>
+    <a href="contact.html">Contact</a>
+    <span class="spacer"></span>
+    <a href="game.html" class="play-pill">play · resilience</a>
+    <button class="theme-btn" type="button">☾ dark</button>
+  </nav>
+
+  <section class="page-top fade-in">
+    <div class="section-no">Notes · 01</div>
+    <h1 class="page-title">Handala,<br>and <em>the turned back.</em></h1>
+  </section>
+
+  <main class="notes-wrap fade-in">
+    <div class="note-viewer">
+      <div class="note-controls">
+        <div class="lang-switch" role="tablist" aria-label="Language">
+          <button id="btn-en" class="active" type="button" aria-pressed="true">English</button>
+          <button id="btn-ar" type="button" aria-pressed="false">العربية</button>
+        </div>
+        <a class="open-full" id="open-full" href="notes/handala-en.html" target="_blank" rel="noopener">Open fullscreen ↗</a>
+      </div>
+
+      <div class="note-plate">
+        <iframe id="note-frame" src="notes/handala-en.html" title="Handala — a note (English)" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="note-context">
+      <div class="rule"></div>
+      <p>The artwork is Handala, created by Naji al-Ali in 1969. The line quoted is from the epigraph of Edward Said's <em>Orientalism</em> (1978). If the theme of representation interests you, it runs through my <a href="publications.html">written work</a> as well.</p>
+    </div>
+  </main>
+
+  <footer class="colophon">
+    <span>© <span data-year></span> Rashed Al Jayousi</span>
+    <span>rjayousi.me</span>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    (function () {
+      var frame = document.getElementById('note-frame');
+      var openFull = document.getElementById('open-full');
+      var btnEn = document.getElementById('btn-en');
+      var btnAr = document.getElementById('btn-ar');
+
+      var sources = {
+        en: { src: 'notes/handala-en.html', title: 'Handala — a note (English)' },
+        ar: { src: 'notes/handala-ar.html', title: 'Handala — a note (Arabic)' }
+      };
+
+      function setLang(lang) {
+        var s = sources[lang];
+        if (frame.getAttribute('src') !== s.src) {
+          frame.setAttribute('src', s.src);
+          frame.setAttribute('title', s.title);
+        }
+        openFull.setAttribute('href', s.src);
+        var isEn = lang === 'en';
+        btnEn.classList.toggle('active', isEn);
+        btnAr.classList.toggle('active', !isEn);
+        btnEn.setAttribute('aria-pressed', String(isEn));
+        btnAr.setAttribute('aria-pressed', String(!isEn));
+      }
+
+      btnEn.addEventListener('click', function () { setLang('en'); });
+      btnAr.addEventListener('click', function () { setLang('ar'); });
+    })();
+  </script>
+</body>
+</html>
